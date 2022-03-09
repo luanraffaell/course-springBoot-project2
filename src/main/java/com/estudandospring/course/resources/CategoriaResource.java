@@ -3,24 +3,30 @@ package com.estudandospring.course.resources;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estudandospring.course.domain.Categoria;
+import com.estudandospring.course.services.CategoriaService;
 
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
 	
-	//@GetMapping também funciona
-	@RequestMapping(method=RequestMethod.GET)
-	public List<Categoria> listar() {
+	@Autowired
+	private CategoriaService service;
+	
+	//@GetMapping(value = "/{id}") também funciona
+	
+	@RequestMapping(value = "/{id}",method=RequestMethod.GET)
+	public ResponseEntity<?> find(@PathVariable Integer id) {
 		
-		Categoria cat = new Categoria(1, "Informatica");
-		Categoria cat1 = new Categoria(2, "Escritorio");
+		Categoria obj = service.buscar(id);
 		
-		List<Categoria> catList = Arrays.asList(cat,cat1);
-		return catList;
+		return ResponseEntity.ok().body(obj);
 	}
 }
