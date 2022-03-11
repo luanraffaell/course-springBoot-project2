@@ -13,6 +13,7 @@ import com.estudandospring.course.domain.Cidade;
 import com.estudandospring.course.domain.Cliente;
 import com.estudandospring.course.domain.Endereco;
 import com.estudandospring.course.domain.Estado;
+import com.estudandospring.course.domain.ItemPedido;
 import com.estudandospring.course.domain.Pagamento;
 import com.estudandospring.course.domain.PagamentoComBoleto;
 import com.estudandospring.course.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.estudandospring.course.repositories.CidadeRepository;
 import com.estudandospring.course.repositories.ClienteRepository;
 import com.estudandospring.course.repositories.EnderecoRepository;
 import com.estudandospring.course.repositories.EstadoRepository;
+import com.estudandospring.course.repositories.ItemPedidoRepository;
 import com.estudandospring.course.repositories.PagamentoRepository;
 import com.estudandospring.course.repositories.PedidoRepository;
 import com.estudandospring.course.repositories.ProdutoRepository;
@@ -56,6 +58,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	ItemPedidoRepository itemPedidoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -112,6 +117,19 @@ public class TestConfig implements CommandLineRunner {
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1,pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.0, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.0, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p3, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 		
 	}
 
