@@ -6,10 +6,13 @@ import java.util.Objects;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ItemPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@JsonIgnore //nem olhe para esse caram o item de pedido não irá serializar o itempedidopk
 	@EmbeddedId
 	private ItemPedidoPk id = new ItemPedidoPk();
 	private Double desconto;
@@ -27,9 +30,11 @@ public class ItemPedido implements Serializable {
 		this.quantidade = quantidade;
 		this.preco = preco;
 	}
+	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
+	
 	public Produto getProduto() {
 		return id.getProduto();
 	}
