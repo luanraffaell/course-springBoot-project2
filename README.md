@@ -21,7 +21,9 @@ ofertado pelo professor <a href="https://github.com/acenelio">Nélio Alves</a> n
 
 # Instalação
 Para instalação deste projeto em sua máquina, você deve clonà-lo utilizando um repositório de sua preferência<br>
-git clone git@github.com:luanraffaell/course-springBoot-project2.git
+
+
+```git clone git@github.com:luanraffaell/course-springBoot-project2.git```
 
 # Rodando o projeto
 * Primeiramente, faça o download das dependências do projeto, clicando com o botão direito (Maven > Update Project > Selecione o projeto e clique em OK).
